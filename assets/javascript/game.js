@@ -1,20 +1,15 @@
-var hangManObj = new Object();
-//string of all guessed letters
-hangManObj.guessedLetters = "";
-hangManObj.maxGuess =9;
-hangManObj.totalGuess =0;
-hangManObj.totalMisses =0;
-hangManObj.alphabet = "abcdefghijklmnopqrstuvwxyz"
-// bool for if won or lost
-hangManObj.won;
-//word list
-hangManObj.words = [ "fallout", "mass effect","tron", "donkey kong","golden eye"];
-hangManObj.compWord
-hangManObj.newWord = function(){
-	hangManObj.compWord = hangManObj.words[Math.floor(Math.random()*hangManObj.words.length)]
-}
 function gameSetup(){
-	document.getElementById("gameArea").innerHTML ='<form id="guessForm"> \
+	//setups main gameplay area html
+	document.getElementById("gameArea").innerHTML ='\
+					<div id="hangManArt">\
+							<pre>_________</pre>\
+							<pre>|                |</pre>\
+							<pre>|</pre>\
+							<pre>|</pre>\
+							<pre>|</pre>\
+							<pre>|</pre>\
+							<pre>|</pre>\
+						</div><form id="guessForm"> \
 						<input type="text" name="guess" id="userGuess" maxlength="1"> \
 						<button type="button" id="guessButton">Guess</button> \
 						<br>\
@@ -24,8 +19,8 @@ function gameSetup(){
 					</form>\
 					<ul id="guessWord"></ul>\
 					<h2 class="infoTitle">Guessed Letters</h2>\
-					<div id="guessedList"></div>\
-					<div id="gameLog"></div>'
+					<div id="guessedList"></div>'
+					document.getElementById("gameLog").classList.remove("hidden")
 }//setups the play area
 function newWordSpace(word){
 	//creates the blank letter spaces and assigns a id based on index
@@ -48,11 +43,6 @@ function newGame(){
 	hangManObj.guessedLetters = "";
 	document.getElementById("guessedList").innerHTML = "";
 }
-//chose word at random from list
-console.log(hangManObj.compWord)//for testing
-
-//to display to individual log bout formhangManObj
-
 /*hangManObj
   words
   compWord
@@ -62,6 +52,7 @@ console.log(hangManObj.compWord)//for testing
   totalMisses
   asplabet
   won
+  art[]
   func newWord*/
 var permLog = document.getElementById("gameLog");
 var log = document.getElementById("lastLog");
@@ -139,7 +130,7 @@ function solve(){
 		gameEnd(hangManObj.won);
 	}
 
-}
+}//checks if the awnser given for solve matches and calls gaemEnd with apporiate won state
 
 function gameEnd(won){
 	//disables both form inputs
@@ -151,20 +142,6 @@ function gameEnd(won){
 		log.innerHTML = "You Won!"
 	}
 	else{
-		log.innerHTML = "Sorry you lost :/ the word was " + hangManObj.compWord;
+		log.innerHTML = "Sorry you lost :/ the name was " + hangManObj.compWord;
 	}
 }
-//code example
-//create buttons
-// function makeButtons () {
-// 	btnList = document.getElementById("alphabet");
-
-// 	for (var i of alphabet) {
-// 	    item = document.createElement('li');
-// 	    item.className = 'letter';
-// 	    item.id = i;
-// 	    item.innerHTML = i;
-// 	    item.addEventListener("click", function () {makeGuess(this.innerHTML);});
-// 	    btnList.appendChild(item);
-// 	}
-// }
