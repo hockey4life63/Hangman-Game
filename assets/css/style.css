@@ -1,5 +1,72 @@
+body{
+	background: black;
+	color: #d2d2d2;
+}
+.container{
+	text-align: center;
+}
 .guessWordLetter{
 	display: inline;
 	list-style: none;
 	margin: 0px 10px;
+}
+#userGuess{
+	width: 20px;
+}
+.container{
+	width: 70%;
+	margin: 0 auto;
+	border: 4px dotted;
+	min-height: 400px;
+
+}
+#guessedList{
+	border: 2px solid;
+    min-height: 20px;
+    width: 400px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+#gameTitle{
+	font-size: 30px;
+	margin: 30px;
+	text-align: center;
+}
+#guessForm{
+	width: 250px;
+	margin: 0 auto;
+}
+#guessWord{
+	margin: 0 auto;
+    width: 300px;
+    margin-bottom: 10px;
+}
+#gameLog{
+	width: 350px;
+	height: 150px;
+	overflow-y: scroll;
+	margin: 0 auto;
+	border: 4px inset;
+	margin-bottom: 50px;
+}
+.infoTitle{
+	text-align: center;
+	font-size: 25px;
+}
+#lastLog{
+	font-weight: bold;
+	font-size: 30px;
+	text-align: center;
+}
+.hidden{
+	display: none;
+}
+#hangManArt{
+	    padding: 20px;
+    border: 4px solid;
+    width: 100px;
+    margin: 0 auto;
+}
+p{
+	text-align: left;
 }
