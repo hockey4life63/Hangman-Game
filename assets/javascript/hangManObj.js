@@ -1,7 +1,7 @@
 var hangManObj = new Object();
 //string of all guessed letters
 hangManObj.guessedLetters = "";
-hangManObj.maxGuess =9;
+hangManObj.maxGuess =8;
 hangManObj.totalGuess =0;
 hangManObj.totalMisses =0;
 hangManObj.alphabet = "abcdefghijklmnopqrstuvwxyz"

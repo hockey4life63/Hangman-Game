@@ -57,6 +57,7 @@ body{
 	font-weight: bold;
 	font-size: 30px;
 	text-align: center;
+	margin-bottom: 20px;
 }
 .hidden{
 	display: none;
@@ -65,9 +66,24 @@ body{
 	    padding: 20px;
     border: 4px solid;
     width: 100px;
-    margin: 0 auto;
     text-align: left;
 }
 pre{
+	text-align: left;
+}
+.statContainer{
+	width: 400px;
+	margin: 0 auto;
+}
+#statBox{
+	width: 200px;
+	float: right;
+	height: 150px;
+	border: 4px solid;
+}
+#statBox h2{
+	float: left;
+}
+#statBox p{
 	text-align: left;
 }
