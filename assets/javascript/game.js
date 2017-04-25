@@ -25,6 +25,8 @@ function gameSetup(){
 					<h2 class="infoTitle">Guessed Letters</h2>\
 					<div id="guessedList"></div>'
 					document.getElementById("gameLog").classList.remove("hidden")
+					hangManObj.totalGuess = 0;
+					hangManObj.totalMisses = 0;
 					document.getElementById("missCount").innerHTML = hangManObj.totalMisses;
 					document.getElementById("guessCount").innerHTML = hangManObj.totalGuess;
 }//setups the play area
@@ -41,11 +43,10 @@ function newWordSpace(word){
 		document.getElementById("guessWord").appendChild(item);
 	}
 }
+//calls everthing need to start a new game and resets guess and miss count
 function newGame(){
 	hangManObj.newWord();
 	newWordSpace(hangManObj.compWord);
-	hangManObj.totalGuess = 0;
-	hangManObj.totalMisses = 0;
 	hangManObj.guessedLetters = "";
 	// document.getElementById("guessedList").innerHTML = "";
 }
@@ -60,18 +61,19 @@ function newGame(){
   won
   art[]
   func newWord*/
-var permLog = document.getElementById("gameLog");
-var log = document.getElementById("lastLog");
-//on guess button click runs mainGame
+/*var permLog = document.getElementById("gameLog");
+var log = document.getElementById("lastLog");*/
+//on guess button click runs starts tje game
 document.getElementById("startButton").addEventListener("click", function(){
 	gameSetup();
 	newGame();
 	document.getElementById('guessButton').addEventListener("click",function () {mainGame();})
+	//allows enter to submit guess letter
 	document.getElementById('userGuess').onkeydown = function(e){
-   if(e.keyCode == 13){
-   		mainGame();
-   }
-};
+	   if(e.keyCode == 13){
+	   		mainGame();
+	   }
+	};
 	document.getElementById("solveButton").addEventListener("click" ,function() {solve();})
 	document.getElementById("startButton").setAttribute("class", "hidden");
 });
@@ -80,8 +82,8 @@ function mainGame(){
 	//grabs the letter guesses
 	var guessLetter = document.getElementById("userGuess").value.toLowerCase();
 	var letterFound = false;
-	//Check if a vaild char
-	if(hangManObj.alphabet.indexOf(guessLetter)=== -1){
+	//Check if a vaild char and not blank space
+	if(hangManObj.alphabet.indexOf(guessLetter)=== -1 || guessLetter === ""){
 		log.innerHTML ="Invaild option";
 		permLog.innerHTML += "Invaild option <br>"
 		guessLetter.reset;
@@ -91,14 +93,15 @@ function mainGame(){
 	//check against gessed letter and return if already guessed
 	for (var i = 0; i < hangManObj.guessedLetters.length; i++) {
 		if(hangManObj.guessedLetters[i] === guessLetter){
-			log.innerHTML = "You already guessed "+ guessLetter + " that try agian";
-			permLog.innerHTML += "You already guessed "+ guessLetter + " that try agian <br>";
+			log.innerHTML = "You already guessed "+ guessLetter + " try agian";
+			permLog.innerHTML += "You already guessed "+ guessLetter + " try agian <br>";
 			guessLetter.reset;
 			document.getElementById("guessForm").reset();
 			return
 		}
 	}
 	hangManObj.totalGuess++;
+	document.getElementById("guessCount").innerHTML = hangManObj.totalGuess;
 	//loop thru word and check if letter appears in it
 	for (var i = 0; i<hangManObj.compWord.length; i++) {
 		//grabs letter based on index which is also its id
@@ -109,21 +112,21 @@ function mainGame(){
 			letterFound = true;
 		}//if
 	}//for
+	//if letter is not found aka false add to totale misses and update art
 	if(!letterFound){
 			hangManObj.totalMisses++
 			if(hangManObj.totalMisses===hangManObj.maxGuess){
 				hangManObj.won = false
-				gameEnd(won)
+				gameEnd(hangManObj.won)
 				return
 			}
-			hangManObj.totalMisses++;
-			
+			document.getElementById("missCount").innerHTML = hangManObj.totalMisses;
 			document.getElementById("hangManArt").innerHTML=hangManObj.art[hangManObj.totalMisses-1]
-		}//if letter is not found aka false att to totale misses and update art
+		}
 	//adds letter to already guessed letter list
 	hangManObj.guessedLetters += guessLetter;
+	//rewrite guessed list with new addition
 	document.getElementById("guessedList").innerHTML = "";
-
 	for (var i = 0; i < hangManObj.guessedLetters.length; i++) {
 		document.getElementById("guessedList").innerHTML += hangManObj.guessedLetters[i];
 	}
@@ -132,17 +135,19 @@ function mainGame(){
 	document.getElementById("guessForm").reset();
 	//grabs all displayed letters
 	var check = document.getElementsByClassName("guessWordLetter");
-	//loops thru elements 
+	//loops thru elements if missing letters still return out of func
 	for (var i = 0; i < check.length; i++) {
 		if(check[i].innerHTML === "_"){
 			return
 		}
 	}
+	//if make thru the final check it means player won, set won bool to true and calls gameEnd fucntion 
 	hangManObj.won = true;
 	gameEnd(hangManObj.won);
 
 }//mainGAme
 
+//checks if the awnser given for solve matches and calls gaemEnd with apporiate won statefunction solve(){
 function solve(){
 	var userSolveWord = document.getElementById("userSolve").value.toLowerCase();
 	if(userSolveWord === hangManObj.compWord){
@@ -154,13 +159,14 @@ function solve(){
 		gameEnd(hangManObj.won);
 	}
 
-}//checks if the awnser given for solve matches and calls gaemEnd with apporiate won state
+}
 
 function gameEnd(won){
 	//disables both form inputs
 	document.getElementById("guessForm").reset();
 	document.getElementById("userGuess").disabled = true;
 	document.getElementById("userSolve").disabled = true;
+	//reveals start game button
 	document.getElementById("startButton").classList.remove("hidden")
 	if(won){
 		log.innerHTML = "You Won!"

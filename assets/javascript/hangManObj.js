@@ -1,3 +1,5 @@
+var permLog = document.getElementById("gameLog");
+var log = document.getElementById("lastLog");
 var hangManObj = new Object();
 //string of all guessed letters
 hangManObj.guessedLetters = "";
