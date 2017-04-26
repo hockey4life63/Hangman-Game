@@ -3,7 +3,7 @@ function gameSetup(){
 	document.getElementById("gameArea").innerHTML ='\
 					<div class="statContainer">\
 					<div id="statBox"><h1>Stats</h1>\
-					<h2>Misses:</h2><p id="missCount"></p>\
+					<h2>Misses left:</h2><p id="missCount"></p>\
 					<h2>Total guesses:</h2><p id="guessCount"></p></div>\
 					<div id="hangManArt">\
 							<pre>_________</pre>\
@@ -27,8 +27,7 @@ function gameSetup(){
 					document.getElementById("gameLog").classList.remove("hidden")
 					hangManObj.totalGuess = 0;
 					hangManObj.totalMisses = 0;
-					document.getElementById("missCount").innerHTML = hangManObj.totalMisses;
-					document.getElementById("guessCount").innerHTML = hangManObj.totalGuess;
+					hangManObj.updateStats();
 }//setups the play area
 function newWordSpace(word){
 	//creates the blank letter spaces and assigns a id based on index
@@ -74,6 +73,7 @@ document.getElementById("startButton").addEventListener("click", function(){
 	   		mainGame();
 	   }
 	};
+	//adds event listener for solve button and hides start button
 	document.getElementById("solveButton").addEventListener("click" ,function() {solve();})
 	document.getElementById("startButton").setAttribute("class", "hidden");
 });
@@ -101,7 +101,7 @@ function mainGame(){
 		}
 	}
 	hangManObj.totalGuess++;
-	document.getElementById("guessCount").innerHTML = hangManObj.totalGuess;
+	hangManObj.updateStats();
 	//loop thru word and check if letter appears in it
 	for (var i = 0; i<hangManObj.compWord.length; i++) {
 		//grabs letter based on index which is also its id
@@ -117,14 +117,15 @@ function mainGame(){
 			hangManObj.totalMisses++
 			if(hangManObj.totalMisses===hangManObj.maxGuess){
 				hangManObj.won = false
+				hangManObj.updateStats();
 				gameEnd(hangManObj.won)
 				return
 			}
-			document.getElementById("missCount").innerHTML = hangManObj.totalMisses;
+			hangManObj.updateStats();
 			document.getElementById("hangManArt").innerHTML=hangManObj.art[hangManObj.totalMisses-1]
 		}
 	//adds letter to already guessed letter list
-	hangManObj.guessedLetters += guessLetter;
+	hangManObj.guessedLetters += guessLetter.toUpperCase();
 	//rewrite guessed list with new addition
 	document.getElementById("guessedList").innerHTML = "";
 	for (var i = 0; i < hangManObj.guessedLetters.length; i++) {

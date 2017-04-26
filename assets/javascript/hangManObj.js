@@ -15,6 +15,10 @@ hangManObj.compWord
 hangManObj.newWord = function(){
 	hangManObj.compWord = hangManObj.words[Math.floor(Math.random()*hangManObj.words.length)]
 }
+hangManObj.updateStats = function(){
+	document.getElementById("missCount").innerHTML = hangManObj.maxGuess-hangManObj.totalMisses;
+	document.getElementById("guessCount").innerHTML = hangManObj.totalGuess;
+}
 hangManObj.art = [ 
 '<pre>_________</pre>\
 <pre>|       |</pre> \
