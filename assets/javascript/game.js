@@ -1,3 +1,6 @@
+$(document).ready(function(){
+	$(".container").fadeIn(1000);
+})
 window.onload=function(){
 	hangManObj.loadUp.play();
 }
@@ -204,7 +207,7 @@ function gameEnd(won){
 		})
 		 var swingAnimation = window.setInterval(function(){
 			swingArt();
-		}, 5000)
+		}, 4000)
 		 swingAnimation;
 	}
 }
