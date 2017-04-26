@@ -1,3 +1,6 @@
+window.onload=function(){
+	hangManObj.loadUp.play();
+}
 function gameSetup(){
 	//setups main gameplay area html
 	document.getElementById("gameArea").innerHTML ='\
@@ -47,7 +50,6 @@ function newGame(){
 	hangManObj.newWord();
 	newWordSpace(hangManObj.compWord);
 	hangManObj.guessedLetters = "";
-	// document.getElementById("guessedList").innerHTML = "";
 }
 /*hangManObj
   words
@@ -66,6 +68,7 @@ var log = document.getElementById("lastLog");*/
 document.getElementById("startButton").addEventListener("click", function(){
 	gameSetup();
 	newGame();
+	hangManObj.onGameStart.play();
 	document.getElementById('guessButton').addEventListener("click",function () {mainGame();})
 	//allows enter to submit guess letter
 	document.getElementById('userGuess').onkeydown = function(e){
@@ -125,11 +128,11 @@ function mainGame(){
 			document.getElementById("hangManArt").innerHTML=hangManObj.art[hangManObj.totalMisses-1]
 		}
 	//adds letter to already guessed letter list
-	hangManObj.guessedLetters += guessLetter.toUpperCase();
+	hangManObj.guessedLetters += guessLetter;
 	//rewrite guessed list with new addition
 	document.getElementById("guessedList").innerHTML = "";
 	for (var i = 0; i < hangManObj.guessedLetters.length; i++) {
-		document.getElementById("guessedList").innerHTML += hangManObj.guessedLetters[i];
+		document.getElementById("guessedList").innerHTML += hangManObj.guessedLetters[i].toUpperCase();
 	}
 	guessLetter.reset;
 	//clears form
@@ -162,6 +165,24 @@ function solve(){
 
 }
 
+function artSwingLeft(){
+	document.getElementById('hangManArt').innerHTML = hangManObj.art[8];
+
+}
+function artSwingRight(){
+	document.getElementById('hangManArt').innerHTML = hangManObj.art[9];
+}
+function artSwingMiddle(){
+	document.getElementById('hangManArt').innerHTML = hangManObj.art[7];
+
+}
+function swingArt(){
+	window.setTimeout(function() {artSwingLeft();}, 1000);
+	window.setTimeout(function() {artSwingMiddle();}, 2000);
+	window.setTimeout(function() {artSwingRight();}, 3000);
+	window.setTimeout(function() {artSwingMiddle();}, 4000);
+}
+
 function gameEnd(won){
 	//disables both form inputs
 	document.getElementById("guessForm").reset();
@@ -170,9 +191,20 @@ function gameEnd(won){
 	//reveals start game button
 	document.getElementById("startButton").classList.remove("hidden")
 	if(won){
+		hangManObj.gameWin.play();
 		log.innerHTML = "You Won!"
 	}
 	else{
+		hangManObj.gameLose.play();
+		document.getElementById('hangManArt').innerHTML = hangManObj.art[7]
 		log.innerHTML = "Sorry you lost :/ the name was " + hangManObj.compWord;
+		swingArt();
+		document.getElementById("startButton").addEventListener("click", function(){
+			clearInterval(swingAnimation)
+		})
+		 var swingAnimation = window.setInterval(function(){
+			swingArt();
+		}, 5000)
+		 swingAnimation;
 	}
 }

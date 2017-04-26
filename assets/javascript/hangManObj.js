@@ -12,6 +12,10 @@ hangManObj.won;
 //word list
 hangManObj.words = [ "fallout", "mass effect","tron", "donkey kong","golden eye"];
 hangManObj.compWord
+hangManObj.loadUp = new Audio("assets/sounds/pageLoadSound.wav");
+hangManObj.onGameStart = new Audio("assets/sounds/gameStartSound.wav");
+hangManObj.gameWin = new Audio("assets/sounds/gameWinSound.wav");
+hangManObj.gameLose = new Audio("assets/sounds/gameLoseSound.wav")
 hangManObj.newWord = function(){
 	hangManObj.compWord = hangManObj.words[Math.floor(Math.random()*hangManObj.words.length)]
 }

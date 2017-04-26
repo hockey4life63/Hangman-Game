@@ -1,18 +1,26 @@
 body{
-	background: #063315;
-	color: #14F074;
-	font-family: 'Share Tech Mono', monospace;
+	background: url(https://i.imgur.com/IL9nJ3d.png);
+    color: #64cc75;
+    font-family: 'Share Tech Mono', monospace;
+    background-size: cover;
 }
 h1{
 	font-family: 'Press Start 2P', cursive;
 }
 input{
-	background: #0C833D;
+	background: rgba(12, 131, 61, .50);
     color: #14F074;
     font-size: 20px;
+    border-color: black;
+}
+button{
+	background: #0C833D;
+    border-color: black;
+    font-size: 24px;
 }
 .container{
 	text-align: center;
+	margin-top: 150px;
 }
 .guessWordLetter{
 	display: inline;
@@ -31,7 +39,7 @@ input{
 }
 #guessedList{
 	border: 2px solid;
-    min-height: 20px;
+    min-height: 34px;
     width: 400px;
     margin: 0 auto;
     margin-top: 20px;
@@ -48,7 +56,7 @@ input{
 }
 #guessWord{
 	margin: 0 auto;
-    width: 300px;
+    width: 400px;
     margin-bottom: 10px;
 }
 #gameLog{
