@@ -6,6 +6,7 @@ hangManObj.guessedLetters = "";
 hangManObj.maxGuess =8;
 hangManObj.totalGuess =0;
 hangManObj.totalMisses =0;
+hangManObj.totalWins = 0;
 hangManObj.alphabet = "abcdefghijklmnopqrstuvwxyz"
 // bool for if won or lost
 hangManObj.won;
@@ -22,6 +23,7 @@ hangManObj.newWord = function(){
 hangManObj.updateStats = function(){
 	document.getElementById("missCount").innerHTML = hangManObj.maxGuess-hangManObj.totalMisses;
 	document.getElementById("guessCount").innerHTML = hangManObj.totalGuess;
+	$("#winCount").html(hangManObj.totalWins)
 }
 hangManObj.art = [ 
 '<pre>_________</pre>\

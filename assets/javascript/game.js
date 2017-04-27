@@ -9,8 +9,9 @@ function gameSetup(){
 	document.getElementById("gameArea").innerHTML ='\
 					<div class="statContainer">\
 					<div id="statBox"><h1>Stats</h1>\
-					<h2>Misses left:</h2><p id="missCount"></p>\
-					<h2>Total guesses:</h2><p id="guessCount"></p></div>\
+					<h2>Misses Left:</h2><p id="missCount"></p>\
+					<h2>Total Guesses:</h2><p id="guessCount"></p>\
+					<h2>Total Wins:</h2><p id=winCount></p></div>\
 					<div id="hangManArt">\
 							<pre>_________</pre>\
 							<pre>|</pre>\
@@ -195,7 +196,9 @@ function gameEnd(won){
 	document.getElementById("startButton").classList.remove("hidden")
 	if(won){
 		hangManObj.gameWin.play();
-		log.innerHTML = "You Won!"
+		log.innerHTML = "You Won!";
+		hangManObj.totalWins++;
+		hangManObj.updateStats();
 	}
 	else{
 		hangManObj.gameLose.play();
