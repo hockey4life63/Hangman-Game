@@ -5,6 +5,7 @@ window.onload=function(){
 	hangManObj.loadUp.play();
 }
 function gameSetup(){
+	clearInterval(swingAnimation);
 	//setups main gameplay area html
 	document.getElementById("gameArea").innerHTML ='\
 					<div class="statContainer">\
@@ -35,6 +36,7 @@ function gameSetup(){
 					hangManObj.totalGuess = 0;
 					hangManObj.totalMisses = 0;
 					hangManObj.updateStats();
+
 }//setups the play area
 function newWordSpace(word){
 	//creates the blank letter spaces and assigns a id based on index
@@ -208,9 +210,6 @@ function gameEnd(won){
 		document.getElementById("startButton").addEventListener("click", function(){
 			clearInterval(swingAnimation)
 		})
-		 var swingAnimation = window.setInterval(function(){
-			swingArt();
-		}, 4000)
 		 swingAnimation;
 	}
 }

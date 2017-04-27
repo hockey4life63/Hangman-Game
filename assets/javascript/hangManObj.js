@@ -1,5 +1,8 @@
 var permLog = document.getElementById("gameLog");
 var log = document.getElementById("lastLog");
+var swingAnimation = window.setInterval(function(){
+			swingArt();
+		}, 4000);
 var hangManObj = new Object();
 //string of all guessed letters
 hangManObj.guessedLetters = "";
