@@ -5,7 +5,6 @@ window.onload=function(){
 	hangManObj.loadUp.play();
 }
 function gameSetup(){
-	clearInterval(swingAnimation);
 	//setups main gameplay area html
 	document.getElementById("gameArea").innerHTML ='\
 					<div class="statContainer">\
@@ -36,6 +35,9 @@ function gameSetup(){
 					hangManObj.totalGuess = 0;
 					hangManObj.totalMisses = 0;
 					hangManObj.updateStats();
+					window.setTimeout(function() {
+						document.getElementById("hangManArt").innerHTML=hangManObj.art[10]
+					}, 4001);
 
 }//setups the play area
 function newWordSpace(word){
@@ -57,19 +59,7 @@ function newGame(){
 	newWordSpace(hangManObj.compWord);
 	hangManObj.guessedLetters = "";
 }
-/*hangManObj
-  words
-  compWord
-  guessedLetters
-  maxGuess
-  totalGuess
-  totalMisses
-  asplabet
-  won
-  art[]
-  func newWord*/
-/*var permLog = document.getElementById("gameLog");
-var log = document.getElementById("lastLog");*/
+
 //on guess button click runs starts tje game
 document.getElementById("startButton").addEventListener("click", function(){
 	gameSetup();
@@ -170,7 +160,7 @@ function solve(){
 	}
 
 }
-
+//all the funcs needed to mak the swinging hangman
 function artSwingLeft(){
 	document.getElementById('hangManArt').innerHTML = hangManObj.art[8];
 
@@ -182,13 +172,14 @@ function artSwingMiddle(){
 	document.getElementById('hangManArt').innerHTML = hangManObj.art[7];
 
 }
+//func for the animation of the swinging hangman
 function swingArt(){
 	window.setTimeout(function() {artSwingLeft();}, 1000);
 	window.setTimeout(function() {artSwingMiddle();}, 2000);
 	window.setTimeout(function() {artSwingRight();}, 3000);
 	window.setTimeout(function() {artSwingMiddle();}, 4000);
 }
-
+//takes in a bool and displays info on weather won or loss and plays apporiate sound
 function gameEnd(won){
 	//disables both form inputs
 	document.getElementById("guessForm").reset();
@@ -206,10 +197,13 @@ function gameEnd(won){
 		hangManObj.gameLose.play();
 		document.getElementById('hangManArt').innerHTML = hangManObj.art[7]
 		log.innerHTML = "Sorry you lost :/ the name was " + hangManObj.compWord;
+		var swingAnimation = window.setInterval(function(){
+			swingArt();
+		}, 4000)
 		swingArt();
+		swingAnimation;
 		document.getElementById("startButton").addEventListener("click", function(){
-			clearInterval(swingAnimation)
+			clearInterval(swingAnimation);
 		})
-		 swingAnimation;
 	}
 }

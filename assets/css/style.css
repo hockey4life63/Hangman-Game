@@ -111,3 +111,6 @@ pre{
 #statBox p{
 	text-align: left;
 }
+.grayedOut{
+	background: gray;
+}
