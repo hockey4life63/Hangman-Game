@@ -107,6 +107,10 @@ pre{
 }
 #statBox h2{
 	float: left;
+	margin-left: 10px;
+}
+#statBox h1{
+	margin-top: 10px;
 }
 #statBox p{
 	text-align: left;
