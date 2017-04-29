@@ -61,7 +61,7 @@ input, button {
 }
 #guessWord{
 	margin: 0 auto;
-    width: 400px;
+    width: 600px;
     margin-bottom: 10px;
 }
 #gameLog{

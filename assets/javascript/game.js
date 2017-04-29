@@ -11,7 +11,8 @@ function gameSetup(){
 					<div id="statBox"><h1>Stats</h1>\
 					<h2>Misses Left:</h2><p id="missCount"></p>\
 					<h2>Total Guesses:</h2><p id="guessCount"></p>\
-					<h2>Total Wins:</h2><p id=winCount></p></div>\
+					<h2>Total Wins:</h2><p id=winCount></p>\
+					<h2>Total Loses:</h2><p id="lossCount"></p></div>\
 					<div id="hangManArt">\
 							<pre>_________</pre>\
 							<pre>|</pre>\
@@ -37,7 +38,7 @@ function gameSetup(){
 					hangManObj.updateStats();
 					window.setTimeout(function() {
 						document.getElementById("hangManArt").innerHTML=hangManObj.art[10]
-					}, 4001);
+					}, 2001);
 
 }//setups the play area
 function newWordSpace(word){
@@ -174,10 +175,10 @@ function artSwingMiddle(){
 }
 //func for the animation of the swinging hangman
 function swingArt(){
-	window.setTimeout(function() {artSwingLeft();}, 1000);
+	window.setTimeout(function() {artSwingLeft();}, 500);
+	window.setTimeout(function() {artSwingMiddle();}, 1000);
+	window.setTimeout(function() {artSwingRight();}, 1500);
 	window.setTimeout(function() {artSwingMiddle();}, 2000);
-	window.setTimeout(function() {artSwingRight();}, 3000);
-	window.setTimeout(function() {artSwingMiddle();}, 4000);
 }
 //takes in a bool and displays info on weather won or loss and plays apporiate sound
 function gameEnd(won){
@@ -197,9 +198,11 @@ function gameEnd(won){
 		hangManObj.gameLose.play();
 		document.getElementById('hangManArt').innerHTML = hangManObj.art[7]
 		log.innerHTML = "Sorry you lost :/ the name was " + hangManObj.compWord;
+		hangManObj.totalLosses++;
+		hangManObj.updateStats();
 		var swingAnimation = window.setInterval(function(){
 			swingArt();
-		}, 4000)
+		}, 2000)
 		swingArt();
 		swingAnimation;
 		document.getElementById("startButton").addEventListener("click", function(){
